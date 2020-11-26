@@ -7,10 +7,18 @@ def home(request):
     teams = Team.objects.all()
     featured_cars = Car.objects.order_by('-created_date').filter(is_featured=True)
     all_cars = Car.objects.order_by('-created_date')
+    model_Search = Car.objects.values_list('model',flat=True).distinct()
+    city_Search = Car.objects.values_list('city',flat=True).distinct()
+    year_Search = Car.objects.values_list('year',flat=True).distinct()
+    body_style_Search = Car.objects.values_list('body_style',flat=True).distinct()
     data = {
         'teams': teams,
         'featured_cars': featured_cars,
         'all_cars': all_cars,
+        'model_Search': model_Search,
+        'city_Search': city_Search,
+        'year_Search': year_Search,
+        'body_style_Search': body_style_Search,
     }
     return render(request, 'pages/home.html', data )
 
